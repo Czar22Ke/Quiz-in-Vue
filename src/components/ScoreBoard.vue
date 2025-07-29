@@ -1,11 +1,21 @@
 <template>
   <section class="score">
-    Player <span>{{}}</span> X <span>{{}}</span> Computer
+    Player <span>{{ winCount }}</span> X <span>{{ loseCount }}</span> Computer
   </section>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["winCount", "loseCount"],
+  //   computed: {
+  //     playerOwn() {
+  //       return this.winCount;
+  //     },
+  //     computerOwn() {
+  //       return this.loseCount;
+  //     },
+  //   },
+};
 </script>
 <style lang="scss">
 section.score {
@@ -21,5 +31,3 @@ section.score {
   }
 }
 </style>
-
-git add . git commit -m "Update code sessh" git push
