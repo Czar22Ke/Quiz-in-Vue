@@ -1,4 +1,4 @@
-<template>
+<template v-if="">
   <section class="score">
     Player <span>{{ winCount }}</span> X <span>{{ loseCount }}</span> Computer
   </section>
@@ -7,14 +7,6 @@
 <script>
 export default {
   props: ["winCount", "loseCount"],
-  //   computed: {
-  //     playerOwn() {
-  //       return this.winCount;
-  //     },
-  //     computerOwn() {
-  //       return this.loseCount;
-  //     },
-  //   },
 };
 </script>
 <style lang="scss">

@@ -39,6 +39,7 @@
           Next Question
         </button>
       </section>
+      <button class="send" type="button" @click="clearScores()">Purge</button>
     </template>
   </div>
 </template>
@@ -71,21 +72,44 @@ export default {
         this.submittedAnswer = true;
         if (this.chosenAnswer == this.correctAnswer) {
           this.winCount++;
+          localStorage.setItem("winCount", JSON.stringify(this.winCount));
           console.log("You are Correct");
         } else {
           this.loseCount++;
+          localStorage.setItem("loseCount", JSON.stringify(this.loseCount));
           console.log("You are Incorrect");
+        }
+
+        if (this.winCount === 5 && this.loseCount === 5) {
+          alert("You Drew the Game");
+          this.clearScores();
+        } else if (this.winCount === 10) {
+          alert("You Won the Game");
+          this.clearScores();
+        } else if (this.loseCount === 10) {
+          alert("You Lost the Game");
+          this.clearScores();
         }
       }
     },
+    clearScores() {
+      this.winCount = 0;
+      this.loseCount = 0;
+      this.drawCount = 0;
+      // Optionally, keep the localStorage keys but set to 0
+      localStorage.setItem("winCount", 0);
+      localStorage.setItem("loseCount", 0);
+      localStorage.setItem("drawCount", 0);
+
+      this.getNewQuestion();
+    },
+
     getNewQuestion() {
       this.submittedAnswer = false;
       this.chosenAnswer = undefined;
       this.question = undefined;
       this.axios
-        .get(
-          "https://opentdb.com/api.php?amount=30&category=18&difficulty=hard"
-        )
+        .get("https://opentdb.com/api.php?amount=10&category=18")
         .then((response) => {
           this.question = response.data.results[0].question;
           this.incorrectAnswers = response.data.results[0].incorrect_answers;
@@ -102,6 +126,9 @@ export default {
     },
   },
   created() {
+    // Load from localStorage or initialize to 0
+    this.winCount = localStorage.getItem("winCount") || 0;
+    this.loseCount = localStorage.getItem("loseCount") || 0;
     this.getNewQuestion();
   },
 };
