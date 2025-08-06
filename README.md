@@ -29,5 +29,5 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 git add .
-git commit -m "Code- update Session"
+git commit -m "Code- Final Session"
 git push
